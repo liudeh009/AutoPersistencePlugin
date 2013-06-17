@@ -1,0 +1,71 @@
+package $!{daotestpackage};
+
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import $!{daopackage}.$!{javaVO.simpleClassName}DAO;
+import $!{javaVO.className};
+import com.taobao.itest.annotation.ITestSpringBean;
+
+/**
+ * 
+ * #if("$!{author}" != "") @author $!{author} $!{nowTime} #end
+ */
+public class $!{javaVO.simpleClassName}DAOTest extends BaseTestCase{
+    @ITestSpringBean
+    private $!{javaVO.simpleClassName}DAO $!{javaVO.vO2Param}DAO;
+      #set($type="")
+	  #foreach($!pojo in $!javaVO.pojoElementList)
+	    #if($!pojo.javaName==$!{javaVO.primaryKey})
+	       #set($type=$!pojo.javaSimpleType)
+	    #end
+	  #end
+	  
+    @Test
+    public void get$!{javaVO.simpleClassName}(){
+        //请在此处补充测试代码
+        $!{type} $!{javaVO.primaryKey} = null;
+        $!{javaVO.simpleClassName} result =  $!{javaVO.vO2Param}DAO.get$!{javaVO.simpleClassName}($!{javaVO.primaryKey});
+        Assert.assertTrue(result != null);
+    }
+    
+    @Test
+    public void add$!{javaVO.simpleClassName}(){
+        $!{javaVO.simpleClassName} $!{javaVO.vO2Param} = new $!{javaVO.simpleClassName}();
+        //请在此处补充测试代码
+        boolean result =  $!{javaVO.vO2Param}DAO.add$!{javaVO.simpleClassName}($!{javaVO.vO2Param});
+        Assert.assertTrue(result != true);
+    }
+
+    @Test
+    public void update$!{javaVO.simpleClassName}(){
+        $!{javaVO.simpleClassName} $!{javaVO.vO2Param} = new $!{javaVO.simpleClassName}();
+        //请在此处补充测试代码
+        int result =  $!{javaVO.vO2Param}DAO.update$!{javaVO.simpleClassName}($!{javaVO.vO2Param});
+        Assert.assertTrue(result != 0);
+    }
+    
+    public void delete$!{javaVO.simpleClassName}(){
+        $!{type} $!{javaVO.primaryKey} = null;
+        int result =  $!{javaVO.vO2Param}DAO.delete$!{javaVO.simpleClassName}($!{javaVO.primaryKey});
+        Assert.assertTrue(result != 0);
+    }
+    
+    @Test
+    public void get$!{javaVO.simpleClassName}List(){
+       $!{javaVO.simpleClassName} $!{javaVO.vO2Param} = new $!{javaVO.simpleClassName}();
+        //请在此处补充测试代码
+        List<$!{javaVO.simpleClassName}> result =  $!{javaVO.vO2Param}DAO.get$!{javaVO.simpleClassName}List($!{javaVO.vO2Param});
+        Assert.assertTrue(result != null);
+    }
+    
+    @Test
+    public void getExamResultCount(){
+        $!{javaVO.simpleClassName} $!{javaVO.vO2Param} = new $!{javaVO.simpleClassName}();
+        //请在此处补充测试代码
+        int result = $!{javaVO.vO2Param}DAO.get$!{javaVO.simpleClassName}Count($!{javaVO.vO2Param});
+        Assert.assertTrue(result != 0);
+    }
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="$!{charset}" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="$!javaVO.simpleClassName">
+	<typeAlias alias="$!{javaVO.simpleClassName}" type="$!{javaVO.className}" />
+	 #set($type="")
+	 #foreach($!pojo in $!javaVO.pojoElementList)
+	    #if($!pojo.javaName==$!{javaVO.primaryKey})
+	       #set($type=$!pojo.javaType)
+	    #end
+	#end
+	#set($count=0)
+	<resultMap id="$!{javaVO.simpleClassName}Result" class="$!{javaVO.simpleClassName}">
+	    #foreach($element in $javaVO.pojoElementList)
+	       <result column="$!tableVO.columnList.get($count).columnName" property="$!{element.javaName}" />
+	       #set($count=$count+1)
+	    #end
+	</resultMap>
+	#set($count=0) 
+	<sql id="update_sql">
+	      #foreach($element in $javaVO.pojoElementList)
+	       #if($!{tableVO.primaryKey}!=$!{tableVO.columnList.get($count).columnName})
+	       <isNotNull prepend=" ," property="$!{element.javaName}">
+	      	   $!tableVO.columnList.get($count).columnName = #$!{element.javaName}#
+		    </isNotNull>
+		   #end 
+		   #set($count=$count+1)
+	      #end
+	</sql>
+	
+	<sql id="query_sql">
+	      #set($count=0)  
+	      #foreach($element in $javaVO.pojoElementList)
+	      <isNotEmpty prepend=" AND" property="$!{element.javaName}">
+			  $!tableVO.columnList.get($count).columnName = #$!{element.javaName}#
+ 		    </isNotEmpty>
+ 		    #set($count=$count+1)
+	      #end
+	</sql>
+
+	<select id="list" parameterClass="$!{javaVO.simpleClassName}" resultMap="$!{javaVO.simpleClassName}Result">
+		SELECT * FROM $!{tableVO.tableName} WHERE 1=1
+		<include refid="query_sql" />
+	</select>
+
+	<select id="count" parameterClass="$!{javaVO.simpleClassName}" resultClass="int">
+		SELECT count(1) from $!{tableVO.tableName} WHERE 1=1
+		<include refid="query_sql" />
+	</select>
+    
+    <select id="load" parameterClass="$!{type}" resultMap="$!{javaVO.simpleClassName}Result">
+			SELECT * FROM $!{tableVO.tableName} WHERE $!{tableVO.primaryKey} = #$!{javaVO.primaryKey}#
+	</select>
+	
+	<insert id="add" parameterClass="$!{javaVO.simpleClassName}">
+		<![CDATA[
+		INSERT INTO $!{tableVO.tableName}
+			(
+			 #set($count=0)
+			 #foreach($element in $tableVO.columnList)
+			    #set($count=$count+1)
+			    #if($count!=${tableVO.columnList.size()})
+			      $!{element.columnName},
+			    #else
+			      $!{element.columnName}
+			   #end
+			 #end
+			)
+			VALUES
+			(
+			  #set($count=0)
+			 #foreach($element in $javaVO.pojoElementList)
+			    #set($count=$count+1)
+			    #if($count!=${javaVO.pojoElementList.size()})
+			      #$!{element.javaName}#,
+			    #else
+			      #$!{element.javaName}#
+			   #end
+			 #end 
+			);
+		]]>
+	</insert>
+	
+	<update id="update" parameterClass="$!{javaVO.simpleClassName}">
+		UPDATE $!{tableVO.tableName}
+		SET 
+		$!{tableVO.primaryKey} = #$!{javaVO.primaryKey}#
+		<include refid="update_sql" />
+		WHERE $!{tableVO.primaryKey} = #$!{javaVO.primaryKey}#
+	</update>
+	
+	<delete id="delete" parameterClass="$!{type}">
+	   delete from $!{tableVO.tableName} where $!{tableVO.primaryKey} = #$!{javaVO.primaryKey}#
+	</delete>
+</sqlMap>

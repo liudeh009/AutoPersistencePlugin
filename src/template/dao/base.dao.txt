@@ -1,0 +1,50 @@
+package $!{daopackage};
+
+import java.util.List;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+
+/**
+ * 
+ * #if("$!{author}" != "") @author $!{author} $!{nowTime} #end
+ */
+@SuppressWarnings("unchecked")
+public abstract class BaseDAO<T> extends SqlMapClientDaoSupport {
+    
+    protected List<T> queryForList(String statementName, Object parameterObject) {
+        List<T> resultList = getSqlMapClientTemplate().queryForList(statementName, parameterObject);
+        return resultList;
+    }
+    
+    protected int queryCount(String statementName, Object parameterObject) {
+        Integer obj = (Integer) getSqlMapClientTemplate().queryForObject(statementName, parameterObject);
+        return (obj == null) ? 0 : obj;
+    }
+    
+    protected T queryForObject(String statementName, Object parameterObject) {
+        T returnObject = (T) getSqlMapClientTemplate().queryForObject(statementName, parameterObject);
+        return returnObject;
+    }
+  
+    protected boolean executeInsert(String statementName, Object parameterObject) {
+        boolean  flag = true;
+        try {
+            getSqlMapClientTemplate().insert(statementName, parameterObject);
+        } catch (DataAccessException e) {
+            flag = false;
+        }
+        return flag;
+    }
+    
+    protected int executeUpdate(String statementName, Object parameterObject) {
+        int updateRows = getSqlMapClientTemplate().update(statementName, parameterObject);
+        return updateRows;
+    }
+
+    protected int executeDelete(String statementName, Object parameterObject) {
+        int delRows = getSqlMapClientTemplate().delete(statementName, parameterObject);
+        return delRows;
+    }
+
+}

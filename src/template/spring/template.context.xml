@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="$!{charset}"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+   #foreach($javaVO in $javaVOList)
+   <bean id="$!{javaVO.vO2Param}DAO"  class = "$!{daopackage}.impl.$!{javaVO.simpleClassName}DAOImpl"/>
+   <bean id="$!{javaVO.vO2Param}Service"  class = "$!{servicepackage}.impl.$!{javaVO.simpleClassName}ServiceImpl"/>
+   #end  
+</beans>

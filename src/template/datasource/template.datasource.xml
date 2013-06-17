@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="$!{charset}"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">		
+	<bean id="sqlMapClientTemplate" 
+	            class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient">
+			<ref local="sqlMapClient" />
+		</property>
+	</bean>
+	
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:conf/$!{projectName}.sqlmap.xml</value>
+		</property>	
+		<property name="dataSource">
+			<ref local="$!{projectName}DataSource"/>
+		</property>
+	</bean>	
+	
+     <bean id="$!{projectName}DataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>$!{driver}</value>
+		</property>
+		<property name="url">
+			<value>$!{url}</value>
+		</property>
+		<property name="username">
+			<value>$!{user}</value>
+		</property>
+		<property name="password">
+			<value>$!{password}</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="removeAbandonedTimeout">
+			<value>180</value>
+		</property>
+		<property name="logAbandoned">
+			<value>true</value>
+		</property>
+		<property name="maxActive">
+			<value>50</value>
+		</property>
+		<property name="maxIdle">
+			<value>20</value>
+		</property>
+		<property name="maxWait">
+			<value>10000</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1</value>
+		</property>
+	</bean>
+	<!--  
+	<bean id="tddlDataSource" class="com.taobao.tddl.jdbc.group.TGroupDataSource" init-method="init" >
+        <property name="appName" value="AUTO_PERSISTENCE_APP" ></property>
+        <property name="dbGroupKey" value="AUTO_PERSISTENCE_GROUP" ></property>
+    </bean>  
+    -->
+</beans>

@@ -1,0 +1,55 @@
+package $!{servicepackage}.impl;
+
+import java.util.List;
+import $!{daopackage}.$!{javaVO.simpleClassName}DAO;
+import $!{servicepackage}.$!{javaVO.simpleClassName}Service;
+import $!{javaVO.className};
+
+/**
+ * 
+ * #if("$!{author}" != "") @author $!{author} $!{nowTime} #end
+ */
+public class $!{javaVO.simpleClassName}ServiceImpl implements $!{javaVO.simpleClassName}Service{
+    #set($type="")
+	#foreach($!pojo in $!javaVO.pojoElementList)
+	   #if($!pojo.javaName==$!{javaVO.primaryKey})
+	     #set($type=$!pojo.javaSimpleType)
+	   #end
+	#end
+  
+    private $!{javaVO.simpleClassName}DAO $!{javaVO.vO2Param}DAO;
+    
+    @Override
+    public $!{javaVO.simpleClassName} get$!{javaVO.simpleClassName}($type $!{javaVO.primaryKey}) {
+        return $!{javaVO.vO2Param}DAO.get$!{javaVO.simpleClassName}($!{javaVO.primaryKey});
+    }
+    
+    @Override
+    public boolean add$!{javaVO.simpleClassName}($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return $!{javaVO.vO2Param}DAO.add$!{javaVO.simpleClassName}($!{javaVO.vO2Param});
+    }
+
+    @Override
+    public int delete$!{javaVO.simpleClassName}($type $!{javaVO.primaryKey}) {
+        return $!{javaVO.vO2Param}DAO.delete$!{javaVO.simpleClassName}($!{javaVO.primaryKey});
+    }
+
+    @Override
+    public int update$!{javaVO.simpleClassName}($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return $!{javaVO.vO2Param}DAO.update$!{javaVO.simpleClassName}($!{javaVO.vO2Param});
+    }
+    
+      @Override
+    public int get$!{javaVO.simpleClassName}Count($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return $!{javaVO.vO2Param}DAO.get$!{javaVO.simpleClassName}Count($!{javaVO.vO2Param});
+    }
+    
+    @Override
+    public List<$!{javaVO.simpleClassName}> get$!{javaVO.simpleClassName}List($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return $!{javaVO.vO2Param}DAO.get$!{javaVO.simpleClassName}List($!{javaVO.vO2Param});
+    }
+    
+    public void set$!{javaVO.simpleClassName}DAO($!{javaVO.simpleClassName}DAO $!{javaVO.vO2Param}DAO) {
+        this.$!{javaVO.vO2Param}DAO = $!{javaVO.vO2Param}DAO;
+    }
+}

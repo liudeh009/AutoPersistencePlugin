@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution id="AutoPersistencePlugin.contribution1" adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu id="AutoPersistencePlugin.menu1"  
+              label="Auto Persistence"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action id="AutoPersistencePlugin.newAction"
+               label="Setting Parameter"
+               class="com.taobao.autopersistence.actions.AutopersistencePluginAction"
+               menubarPath="AutoPersistencePlugin.menu1/group1"
+               enablesFor="1">
+         </action>
+      </objectContribution>
+   </extension>
+   
+   <extension point="org.eclipse.ui.newWizards">
+      <category id="AutoPersistencePlugin"
+            name="set parameter Wizards">
+      </category>
+      <wizard  id="autopersistenceplugin.wizards.AutoPersistenceWizard"
+            name="autopersistence Multi-page Editor"  icon="icons/sample.gif"
+            category="AutoPersistencePlugin"
+            class="com.taobao.autopersistence.wizards.AutoPersistenceWizard">
+      </wizard>
+   </extension>
+</plugin>

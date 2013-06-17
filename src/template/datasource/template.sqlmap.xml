@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="$!{charset}"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+      <settings cacheModelsEnabled="false" enhancementEnabled="true" lazyLoadingEnabled="false" errorTracingEnabled="true"
+             useStatementNamespaces="true"/>
+      #foreach($javaVO in $javaVOList)     
+        <sqlMap resource="conf/ibatis/$!{javaVO.simpleClassName}.ibatis.xml"/>
+      #end                    
+</sqlMapConfig>	

@@ -1,0 +1,49 @@
+package $!{daopackage}.impl;
+
+import java.util.List;
+import $!{daopackage}.BaseDAO;
+import $!{daopackage}.$!{javaVO.simpleClassName}DAO;
+import $!{javaVO.className};
+
+/**
+ * 
+ * #if("$!{author}" != "") @author $!{author} $!{nowTime} #end
+ */
+public class $!{javaVO.simpleClassName}DAOImpl extends BaseDAO<$!{javaVO.simpleClassName}> implements $!{javaVO.simpleClassName}DAO{
+      #set($type="")
+	  #foreach($!pojo in $!javaVO.pojoElementList)
+	    #if($!pojo.javaName==$!{javaVO.primaryKey})
+	       #set($type=$!pojo.javaSimpleType)
+	    #end
+	  #end
+	  
+    @Override
+    public $!{javaVO.simpleClassName} get$!{javaVO.simpleClassName}($type $!{javaVO.primaryKey}) {
+        return this.queryForObject("$!{javaVO.simpleClassName}.load", $!{javaVO.primaryKey});
+    }
+    
+    @Override
+    public boolean add$!{javaVO.simpleClassName}($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return this.executeInsert("$!{javaVO.simpleClassName}.add", $!{javaVO.vO2Param});
+    }
+
+    @Override
+    public int delete$!{javaVO.simpleClassName}($type $!{javaVO.primaryKey}) {
+        return this.executeDelete("$!{javaVO.simpleClassName}.delete", id);
+    }
+    
+    @Override
+    public int update$!{javaVO.simpleClassName}($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return this.executeUpdate("$!{javaVO.simpleClassName}.update", $!{javaVO.vO2Param});
+    }
+
+     @Override
+    public int get$!{javaVO.simpleClassName}Count($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return this.queryCount("$!{javaVO.simpleClassName}.count", $!{javaVO.vO2Param});
+    }
+
+    @Override
+    public List<$!{javaVO.simpleClassName}> get$!{javaVO.simpleClassName}List($!{javaVO.simpleClassName} $!{javaVO.vO2Param}) {
+        return this.queryForList("$!{javaVO.simpleClassName}.list", $!{javaVO.vO2Param});
+    }
+}

@@ -1,0 +1,18 @@
+package $!{daotestpackage};
+
+import com.taobao.itest.ITestSpringContextBaseCase;
+import com.taobao.itest.annotation.ITestSpringContext;
+import com.taobao.itest.tb.hsf.annotation.ITestHsfStarter;
+
+/**
+ * 
+ * #if("$!{author}" != "") @author $!{author} $!{nowTime} #end
+ */
+@ITestSpringContext(locations = {
+    "classpath:/applicationContext.xml"                              
+  }                     
+)
+@ITestHsfStarter(path = "D:/taobao-hsf.sar", version = "1.4.8")
+public class BaseTestCase extends ITestSpringContextBaseCase{
+
+}

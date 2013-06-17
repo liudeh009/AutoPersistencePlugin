@@ -1,0 +1,26 @@
+package $!{daopackage};
+
+import java.util.List;
+
+import $!{javaVO.className};
+
+/**
+ * 
+ * #if("$!{author}" != "") @author $!{author} $!{nowTime} #end
+ */
+public interface $!{javaVO.simpleClassName}DAO {
+  #set($type="")
+  #foreach($!pojo in $!javaVO.pojoElementList)
+    #if($!pojo.javaName==$!{javaVO.primaryKey})
+        #set($type=$!pojo.javaSimpleType)
+    #end
+  #end
+  
+  public $!{javaVO.simpleClassName} get$!{javaVO.simpleClassName}($type $!{javaVO.primaryKey});
+  public boolean add$!{javaVO.simpleClassName}($!{javaVO.simpleClassName} $!{javaVO.vO2Param});
+  public int update$!{javaVO.simpleClassName}($!{javaVO.simpleClassName} $!{javaVO.vO2Param});
+  public int delete$!{javaVO.simpleClassName}($type $!{javaVO.primaryKey});
+  public int get$!{javaVO.simpleClassName}Count($!{javaVO.simpleClassName} $!{javaVO.vO2Param});
+  public List<$!{javaVO.simpleClassName}> get$!{javaVO.simpleClassName}List($!{javaVO.simpleClassName} $!{javaVO.vO2Param});
+  
+}

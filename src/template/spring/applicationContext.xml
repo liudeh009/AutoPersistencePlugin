@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="$!{charset}"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+    <import resource="conf/${projectName}.datasource.xml" />
+    <import resource="conf/${projectName}.context.xml" />
+</beans>

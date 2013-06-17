@@ -1,0 +1,29 @@
+package $!{javaVO.vOPackage};
+
+#foreach($pg in $!javaVO.set)
+import $!{pg};
+#end
+
+/**
+ * 
+ * #if("$!{author}" != "") @author $!{author} $!{nowTime} #end
+ */
+public class $!{javaVO.simpleClassName} {
+
+	#foreach($pojo in $!javaVO.pojoElementList)
+	#if("$!{pojo.remarks}" != "")
+	   /**$!{pojo.remarks}*/
+	#end
+	private $!{pojo.javaSimpleType} $!{pojo.javaName};
+	#end
+    
+    #foreach($pojo in $!javaVO.pojoElementList)
+    public $!{pojo.javaSimpleType} get$!{pojo.javaName}() {
+        return $!{pojo.javaName};
+    }
+    
+    public void set$!{pojo.javaName}($!{pojo.javaSimpleType} $!{pojo.javaName}) {
+        this.$!{pojo.javaName} = $!{pojo.javaName};
+    }
+    #end
+}
